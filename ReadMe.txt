@@ -15,7 +15,7 @@ bible-hhb-split.txt -- 和合本中文圣经及结巴分词结果
 ◎圣经中各书卷的中英文名称及缩写
 bible-book-names.txt
 
-◎output_file_tf和output_file_tfidf文件夹中的文件名称和书卷名臣英文缩写的对应关系
+◎output_file_tf和output_file_tfidf文件夹中的文件名称和书卷名称英文缩写的对应关系
 book2filename.txt
 
 ◎书卷列表
