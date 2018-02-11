@@ -7,6 +7,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 import jieba
 
+# jieba.add_word('路得')
+jieba.load_userdict("user.dict")
 #替换结巴词库
 # dcit_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'my_dict.txt')
 # jieba.set_dictionary(dcit_path)

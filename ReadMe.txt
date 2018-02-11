@@ -15,9 +15,15 @@ bible-hhb-split.txt -- 和合本中文圣经及结巴分词结果
 ◎圣经中各书卷的中英文名称及缩写
 bible-book-names.txt
 
-◎output_file_tf和output_file_tfidf文件夹中的文件名称和书卷名称英文缩写的对应关系
+◎output_file_tf和output_file_tfidf文件夹中的文件名称和书卷名臣英文缩写的对应关系
 book2filename.txt
 
 ◎书卷列表
 OT-list.txt -- 旧约书卷列表
 NT-list.txt -- 新约书卷列表
+
+◎自定义的词典:user.dict
+圣经人地名之人名(1153个),参照http://www.godcom.net/rdm/r/
+圣经人地名之地名(1829个),参照http://www.godcom.net/rdm/di/
+
+◎圣经中人物名字意义,参照http://www.godcom.net/zhuti/81.htm

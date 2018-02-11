@@ -24,7 +24,7 @@ fin.close()
 row_num=len(lines) #文件的行数
 print "There are %d lines in the input file!!!"%row_num
 flag=None
-output_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'output_file')
+output_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'output_file_tf')
 file_path=None
 for row,line in enumerate(lines): #row：0,1,2,3,...
   line=unicode(line.strip(),'utf-8')
