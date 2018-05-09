@@ -3,8 +3,6 @@
 import re
 import os,sys
 import string
-reload(sys)
-sys.setdefaultencoding('utf-8')
 import jieba
 
 # jieba.add_word('路得')
@@ -17,7 +15,7 @@ jieba.load_userdict("user.dict")
 # jieba.load_userdict('userdict.txt')
 # 创建停用词列表
 def creadstoplist(stopwordspath):
-    stwlist = [line.strip() for line in open(stopwordspath, 'r').readlines()]
+    stwlist = [line.strip() for line in open(stopwordspath, 'r',encoding='UTF-8').readlines()]
     return stwlist
 
 # 对句子进行分词
@@ -27,10 +25,10 @@ def seg_sentence(sentence): #输入unicode编码字符串
     #停用词文件由用户自己建立,注意路径必须和源文件放在一起
     stopwords_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'stopwords.txt')
     stwlist = creadstoplist(stopwords_path) #这里加载停用词的路径
-    stwlist.extend(list(string.lowercase+string.uppercase+string.punctuation+" "+'\t')) #添加英文标点符号
+    stwlist.extend(list(string.ascii_lowercase+string.ascii_uppercase+string.punctuation+" "+'\t')) #添加英文标点符号
     keyword_list=[]
     digit_reg=r'^(\d+\.?\d*(?:L|ML|CM|MM|M|G|KG|V)?)$' #数字正则
-    digit_reg=re.compile(unicode(digit_reg,'utf8'))
+    digit_reg=re.compile(digit_reg)
     for word in wordList:
         if word not in stwlist: #判断是否是停用词
             if len(word) > 1:  #不去掉长度为1的词

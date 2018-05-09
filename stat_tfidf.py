@@ -5,8 +5,7 @@ import sys,os,re,string,time,json,gzip,random
 import datetime,time,re
 import math
 from jieba_cut import *
-reload(sys)
-sys.setdefaultencoding('utf8')
+
 starttime = datetime.datetime.now()    
 #######################################################
 def read_tf_file(filename,threshold):
@@ -18,12 +17,12 @@ def read_tf_file(filename,threshold):
   keyword_num=0
   output_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'output_file_tf')
   file_path=os.path.join(output_path, filename+'.txt')
-  fin=open(file_path)
+  fin=open(file_path,"r",encoding='UTF-8')
   lines=fin.readlines()
   fin.close()
   for line in lines:
-    line=unicode(line.strip(), "utf-8")
-    keyword,tf_num=line.split(unicode(',','utf-8'))
+    line=line.strip()
+    keyword,tf_num=line.split(',')
     if int(tf_num)>=threshold:
       keyword_num+=int(tf_num)
       tmp_keywords.append(keyword)
@@ -36,10 +35,10 @@ def read_tf_file(filename,threshold):
 
 book2filename_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'book2filename.txt')
 filenames=[] #所有的book列表
-with open(book2filename_path, "r") as fin:
+with open(book2filename_path, "r",encoding='UTF-8') as fin:
   for line in fin.readlines():
-    line=unicode(line.strip(), "utf-8")
-    book,file_name=line.split(unicode(',','utf-8'))
+    line=line.strip()
+    book,file_name=line.split(',')
     filenames.append(file_name)
 
 book_tf=dict() #{book1:{k1:0.5,k2:0.4,...},book2:{},...}
@@ -49,13 +48,13 @@ for filename in filenames:
   book_keywords[filename]=keywords
   book_tf[filename]=tf
 book_num=len(book_keywords)
-print "there are %d books in Bible!!!"%book_num
+print("there are %d books in Bible!!!"%book_num)
 
 dictionary=[]
 for book in book_keywords:
   dictionary.extend(book_keywords[book])
 dictionary=set(dictionary)
-print "there are %d keywords in dictionary!!!"%len(dictionary)
+print("there are %d keywords in dictionary!!!"%len(dictionary))
 
 #计算每个keyword的idf
 keyword_idf=dict()
@@ -70,15 +69,15 @@ for keyword in dictionary:
 for filename in filenames:
   output_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'output_file_tfidf')
   file_path=os.path.join(output_path, filename+'.txt')
-  fout=open(file_path,'w')
+  fout=open(file_path,'w',encoding='UTF-8')
   keyword_tfidf=dict()
   for keyword in book_tf[filename]:
     keyword_tfidf[keyword]=book_tf[filename][keyword]*keyword_idf[keyword]
-  sorted_dict=sorted(keyword_tfidf.iteritems(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
+  sorted_dict=sorted(keyword_tfidf.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
   for keyword,tfidf in sorted_dict:
     tmp_line=','.join([keyword,str(tfidf)])
-    fout.write(tmp_line.encode('utf-8')+'\n')
+    fout.write(tmp_line+'\n')
   fout.close() #关闭文件
 #####################################################
 endtime = datetime.datetime.now()
-print (endtime - starttime),"time used!!!" #0:00:00.280797
+print((endtime - starttime),"time used!!!") #0:00:00.280797
