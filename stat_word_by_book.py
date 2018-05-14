@@ -88,8 +88,8 @@ word_num=array(word_num)/sum(word_num)
 
 sorted_dict=sorted(word_count.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
 order_books   =[Eng_abb2Eng_name[e[0]] for e in sorted_dict]
-order_word_num=[e[1] for e in sorted_dict]
-order_word_num=array(order_word_num)/sum(order_word_num)
+order_word_number=[e[1] for e in sorted_dict]
+order_word_num=array(order_word_number)/sum(order_word_number)
 
 old_books   =[Eng_abb2Eng_name[e[0]] for e in sorted_dict if e[0] in old_testament]
 old_word_num=[e[1] for e in sorted_dict if e[0] in old_testament]
@@ -119,10 +119,12 @@ prop80=proportion(all_y,0.8)
 plt.plot(all_x,len(word_num)*[prop80],'*',color='red',label='80%_proportion') 
 for xx,yy in zip(all_x,all_y):
   plt.text(xx-0.6,yy+0.1,'%.1f'%yy) 
+for index,xx in enumerate(all_x):
+  plt.text(xx-0.4,0.0,'%d'%(index+1)) 
 # 光滑曲线
 plt.plot(all_x, all_y,'o-',color='coral',label='proportion')
 plt.legend()
-plt.show() 
+# plt.show() 
 
 fig = plt.figure(2)  
 ax  = fig.add_subplot(111)  
@@ -144,10 +146,12 @@ prop80=proportion(order_word_num*100,0.8)
 plt.plot(range(len(order_word_num)),len(order_word_num)*[prop80],'*',color='red',label='80%_proportion')
 for xx,yy in zip(order_all_x,order_all_y):
   plt.text(xx-0.6,yy+0.1,'%.1f'%yy) 
+for index,xx in enumerate(order_all_x):
+  plt.text(xx-0.4,0.0,'%d'%(index+1)) 
 # 光滑曲线
 plt.plot(order_all_x, order_all_y,'o-',color='coral',label='proportion')
 plt.legend()
-plt.show() 
+# plt.show() 
 
 fig = plt.figure(3)  
 ax  = fig.add_subplot(111)  
@@ -169,10 +173,12 @@ prop80=proportion(old_y,0.8)
 plt.plot(old_x,len(old_word_num)*[prop80],'*',color='red',label='80%_proportion')
 for xx,yy in zip(old_x,old_y):
   plt.text(xx-0.3,yy+0.1,'%.1f'%yy) 
+for index,xx in enumerate(old_x):
+  plt.text(xx-0.2,0.0,'%d'%(index+1)) 
 # 光滑曲线
 plt.plot(old_x, old_y,'o-',color='coral',label='proportion')
 plt.legend()
-plt.show() 
+# plt.show() 
 
 fig = plt.figure(4)  
 ax  = fig.add_subplot(111) 
@@ -195,18 +201,20 @@ plt.plot(new_x,len(new_word_num)*[prop80],'*',color='red',label='80%_proportion'
 # 标记柱形的高度值
 for xx,yy in zip(new_x,new_y):
   plt.text(xx-0.2,yy+0.1,'%.1f'%yy)
+for index,xx in enumerate(new_x):
+  plt.text(xx-0.2,0.0,'%d'%(index+1)) 
 # 光滑曲线
 plt.plot(new_x, new_y,'o-',color='coral',label='proportion')
 plt.legend()
 plt.show() 
 
-file_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'proportion.txt')
+file_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'proportion_rank.csv')
 fout=open(file_path,'w',encoding='UTF-8') #打开文件
 order_books   =[Eng_abb2Ch_name[e[0]] for e in sorted_dict]
 order_word_num=[e[1] for e in sorted_dict]
 order_word_num=array(order_word_num)/sum(order_word_num)*100
 for index,book in enumerate(order_books):
-	output_line='%s,%.2f%%'%(book,order_word_num[index])
+	output_line='%-d,%-s,%-d,%-.2f%%'%(index+1,book,order_word_number[index],order_word_num[index])
 	fout.write(output_line+'\n')
 fout.close()
 #####################################################
