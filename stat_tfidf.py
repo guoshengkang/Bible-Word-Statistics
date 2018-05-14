@@ -22,7 +22,7 @@ def read_tf_file(filename,threshold):
   fin.close()
   for line in lines:
     line=line.strip()
-    keyword,tf_num=line.split(',')
+    rank,keyword,tf_num=line.split(',')
     if int(tf_num)>=threshold:
       keyword_num+=int(tf_num)
       tmp_keywords.append(keyword)
@@ -74,8 +74,8 @@ for filename in filenames:
   for keyword in book_tf[filename]:
     keyword_tfidf[keyword]=book_tf[filename][keyword]*keyword_idf[keyword]
   sorted_dict=sorted(keyword_tfidf.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
-  for keyword,tfidf in sorted_dict:
-    tmp_line=','.join([keyword,str(tfidf)])
+  for index,(keyword,tfidf) in enumerate(sorted_dict):
+    tmp_line='%d,%s,%.6f'%(index+1,keyword,tfidf)
     fout.write(tmp_line+'\n')
   fout.close() #关闭文件
 #####################################################

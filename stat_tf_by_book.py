@@ -39,8 +39,8 @@ for row,line in enumerate(lines): #row：0,1,2,3,...
     if file_path: #将字典写入文件
       sorted_dict=sorted(keyword2num.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
       fout_stat=open(file_path,'w',encoding='UTF-8') #打开文件
-      for keyword,number in sorted_dict:
-        tmp_line=','.join([keyword,str(number)])
+      for index,(keyword,number) in enumerate(sorted_dict):
+        tmp_line='%d,%s,%d'%(index+1,keyword,number)
         fout_stat.write(tmp_line+'\n')
       fout_stat.close() #关闭文件
     keyword2num=dict() #字典初始化为{}
@@ -56,8 +56,8 @@ for row,line in enumerate(lines): #row：0,1,2,3,...
 if file_path: #将最后一个字典写入文件
   sorted_dict=sorted(keyword2num.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
   fout_stat=open(file_path,'w',encoding='UTF-8') #打开文件
-  for keyword,number in sorted_dict:
-    tmp_line=','.join([keyword,str(number)])
+  for index,(keyword,number) in enumerate(sorted_dict):
+    tmp_line='%d,%s,%d'%(index+1,keyword,number)
     fout_stat.write(tmp_line+'\n')
   fout_stat.close() #关闭文件
 

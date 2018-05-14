@@ -63,20 +63,20 @@ for row,line in enumerate(lines): #row：0,1,2,3,...
 
 #将3个字典分别排序,并写入文件
 sorted_dict=sorted(keyword2num0.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
-for keyword,number in sorted_dict:
-  tmp_line=','.join([keyword,str(number)])
+for index,(keyword,number) in enumerate(sorted_dict):
+  tmp_line='%d,%s,%d'%(index+1,keyword,number)
   fout0.write(tmp_line+'\n')
 fout0.close() #关闭文件
 
 sorted_dict=sorted(keyword2num1.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
-for keyword,number in sorted_dict:
-  tmp_line=','.join([keyword,str(number)])
+for index,(keyword,number) in enumerate(sorted_dict):
+  tmp_line='%d,%s,%d'%(index+1,keyword,number)
   fout1.write(tmp_line+'\n')
 fout1.close() #关闭文件
 
 sorted_dict=sorted(keyword2num2.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
-for keyword,number in sorted_dict:
-  tmp_line=','.join([keyword,str(number)])
+for index,(keyword,number) in enumerate(sorted_dict):
+  tmp_line='%d,%s,%d'%(index+1,keyword,number)
   fout2.write(tmp_line+'\n')
 fout2.close() #关闭文件
 #####################################################
