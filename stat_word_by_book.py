@@ -82,22 +82,25 @@ for row,line in enumerate(lines): #row：0,1,2,3,...
   if Eng_abb not in books_order:
   	books_order.append(Eng_abb)
 
-books   =[Eng_abb2Eng_name[book] for book in books_order]
+books   =[Eng_abb2Ch_name[book] for book in books_order]
 word_num=[word_count[book] for book in books_order]
 word_num=array(word_num)/sum(word_num)
 
 sorted_dict=sorted(word_count.items(), key=lambda d:d[1], reverse = True ) #d[0]为key,d[1]为value,返回一个元组列表
-order_books   =[Eng_abb2Eng_name[e[0]] for e in sorted_dict]
+order_books   =[Eng_abb2Ch_name[e[0]] for e in sorted_dict]
 order_word_number=[e[1] for e in sorted_dict]
 order_word_num=array(order_word_number)/sum(order_word_number)
 
-old_books   =[Eng_abb2Eng_name[e[0]] for e in sorted_dict if e[0] in old_testament]
+old_books   =[Eng_abb2Ch_name[e[0]] for e in sorted_dict if e[0] in old_testament]
 old_word_num=[e[1] for e in sorted_dict if e[0] in old_testament]
 old_word_num=array(old_word_num)/sum(old_word_num)
 
-new_books   =[Eng_abb2Eng_name[e[0]] for e in sorted_dict if e[0] in new_testament]
+new_books   =[Eng_abb2Ch_name[e[0]] for e in sorted_dict if e[0] in new_testament]
 new_word_num=[e[1] for e in sorted_dict if e[0] in new_testament]
 new_word_num=array(new_word_num)/sum(new_word_num)
+# 现实中文
+plt.rcParams['font.sans-serif']=['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
 
 fig = plt.figure(1)  
 ax  = fig.add_subplot(111)  
@@ -106,24 +109,26 @@ all_y = word_num*100
 ax=plt.bar(all_x, all_y,tick_label=books)  
 plt.xticks(all_x,rotation=80,fontsize=8)
 plt.ylabel("%")
-plt.title("Holy-Bible")
+plt.title("圣经")
 p80=np.percentile(all_y,80)#80%分位数
 pm=np.median(all_y)
 mean=np.mean(all_y)
 p20=np.percentile(all_y,20)#20%分位数
-plt.plot(all_x,len(word_num)*[p80],'^',color='lime',label='80%_quantile') 
-plt.plot(all_x,len(word_num)*[pm],'D',color='lime',label='median') 
-plt.plot(all_x,len(word_num)*[mean],'o',color='navy',label='mean') 
-plt.plot(all_x,len(word_num)*[p20],'v',color='lime',label='20%_quantile')
+plt.plot(all_x,len(word_num)*[p80],'^',color='lime',label='80%_分位数') 
+plt.plot(all_x,len(word_num)*[pm],'D',color='lime',label='中位数') 
+plt.plot(all_x,len(word_num)*[mean],'o',color='navy',label='平均值') 
+plt.plot(all_x,len(word_num)*[p20],'v',color='lime',label='20%_分位数')
 prop80=proportion(all_y,0.8) 
-plt.plot(all_x,len(word_num)*[prop80],'*',color='red',label='80%_proportion') 
+plt.plot(all_x,len(word_num)*[prop80],'*',color='red',label='80%_比例') 
 for xx,yy in zip(all_x,all_y):
   plt.text(xx-0.6,yy+0.1,'%.1f'%yy) 
 for index,xx in enumerate(all_x):
   plt.text(xx-0.4,0.0,'%d'%(index+1)) 
 # 光滑曲线
-plt.plot(all_x, all_y,'o-',color='coral',label='proportion')
+plt.plot(all_x, all_y,'o-',color='coral',label='比例')
 plt.legend()
+fig.set_size_inches(16, 8)
+plt.savefig('圣经_书卷篇幅占比图'+'.png',dpi = 500,bbox_inches='tight',pad_inches=None) #,,bbox_inches='tight'
 # plt.show() 
 
 fig = plt.figure(2)  
@@ -133,24 +138,26 @@ order_all_y = order_word_num*100
 ax=plt.bar(range(len(order_word_num)), order_word_num*100,tick_label=order_books)  
 plt.xticks(range(len(order_word_num)),rotation=80,fontsize=8)
 plt.ylabel("%")
-plt.title("Holy-Bible (ranked)")
+plt.title("圣经_书卷篇幅占比排序图")
 p80=np.percentile(order_word_num*100,80)#80%分位数
 pm=np.median(order_word_num*100)
 mean=np.mean(order_word_num*100)
 p20=np.percentile(order_word_num*100,20)#20%分位数
-plt.plot(range(len(order_word_num)),len(order_word_num)*[p80],'^',color='lime',label='80%_quantile') 
-plt.plot(range(len(order_word_num)),len(order_word_num)*[pm],'D',color='lime',label='median') 
-plt.plot(range(len(order_word_num)),len(order_word_num)*[mean],'o',color='navy',label='mean') 
-plt.plot(range(len(order_word_num)),len(order_word_num)*[p20],'v',color='lime',label='20%_quantile')
+plt.plot(range(len(order_word_num)),len(order_word_num)*[p80],'^',color='lime',label='80%_分位数') 
+plt.plot(range(len(order_word_num)),len(order_word_num)*[pm],'D',color='lime',label='中位数') 
+plt.plot(range(len(order_word_num)),len(order_word_num)*[mean],'o',color='navy',label='平均值') 
+plt.plot(range(len(order_word_num)),len(order_word_num)*[p20],'v',color='lime',label='20%_分位数')
 prop80=proportion(order_word_num*100,0.8) 
-plt.plot(range(len(order_word_num)),len(order_word_num)*[prop80],'*',color='red',label='80%_proportion')
+plt.plot(range(len(order_word_num)),len(order_word_num)*[prop80],'*',color='red',label='80%_比例')
 for xx,yy in zip(order_all_x,order_all_y):
   plt.text(xx-0.6,yy+0.1,'%.1f'%yy) 
 for index,xx in enumerate(order_all_x):
   plt.text(xx-0.4,0.0,'%d'%(index+1)) 
 # 光滑曲线
-plt.plot(order_all_x, order_all_y,'o-',color='coral',label='proportion')
+plt.plot(order_all_x, order_all_y,'o-',color='coral',label='比例')
 plt.legend()
+fig.set_size_inches(16, 8)
+plt.savefig('圣经_书卷篇幅占比排序图'+'.png',dpi = 500,bbox_inches='tight',pad_inches=None) #,,bbox_inches='tight'
 # plt.show() 
 
 fig = plt.figure(3)  
@@ -160,24 +167,26 @@ old_y = old_word_num*100
 ax=plt.bar(old_x, old_y,tick_label=old_books)  
 plt.xticks(old_x,rotation=60)
 plt.ylabel("%")
-plt.title("Old_Testament")
+plt.title("旧约_书卷篇幅占排序比图")
 p80=np.percentile(old_y,80)#80%分位数
 pm=np.median(old_y)
 mean=np.mean(old_y)
 p20=np.percentile(old_y,20)#20%分位数
-plt.plot(old_x,len(old_word_num)*[p80],'^',color='lime',label='80%_quantile') 
-plt.plot(old_x,len(old_word_num)*[pm],'D',color='lime',label='median') 
-plt.plot(old_x,len(old_word_num)*[mean],'o',color='navy',label='mean') 
-plt.plot(old_x,len(old_word_num)*[p20],'v',color='lime',label='20%_quantile')
+plt.plot(old_x,len(old_word_num)*[p80],'^',color='lime',label='80%_分位数') 
+plt.plot(old_x,len(old_word_num)*[pm],'D',color='lime',label='中位数') 
+plt.plot(old_x,len(old_word_num)*[mean],'o',color='navy',label='平均值') 
+plt.plot(old_x,len(old_word_num)*[p20],'v',color='lime',label='20%_分位数')
 prop80=proportion(old_y,0.8) 
-plt.plot(old_x,len(old_word_num)*[prop80],'*',color='red',label='80%_proportion')
+plt.plot(old_x,len(old_word_num)*[prop80],'*',color='red',label='80%_比例')
 for xx,yy in zip(old_x,old_y):
-  plt.text(xx-0.3,yy+0.1,'%.1f'%yy) 
+  plt.text(xx-0.3,yy+0.1,'%.1f%%'%yy) 
 for index,xx in enumerate(old_x):
   plt.text(xx-0.2,0.0,'%d'%(index+1)) 
 # 光滑曲线
-plt.plot(old_x, old_y,'o-',color='coral',label='proportion')
+plt.plot(old_x, old_y,'o-',color='coral',label='比例')
 plt.legend()
+fig.set_size_inches(16, 8)
+plt.savefig('旧约_书卷篇幅占排序比图'+'.png',dpi = 500,bbox_inches='tight',pad_inches=None) #,,bbox_inches='tight'
 # plt.show() 
 
 fig = plt.figure(4)  
@@ -187,26 +196,28 @@ new_y = new_word_num*100
 ax=plt.bar(new_x, new_y,tick_label=new_books)  
 plt.xticks(range(len(new_word_num)),rotation=60)
 plt.ylabel("%")
-plt.title("New_Testament")
+plt.title("新约_书卷篇幅占排序比图")
 # 画出各分位数线
 p80=np.percentile(new_y,80)#80%分位数
 pm=np.median(new_y)
 mean=np.mean(new_y)
-plt.plot(new_x,len(new_word_num)*[p80],'^',color='lime',label='80%_quantile') 
-plt.plot(new_x,len(new_word_num)*[pm],'D',color='lime',label='median') 
-plt.plot(new_x,len(new_word_num)*[mean],'o',color='navy',label='mean') 
-plt.plot(new_x,len(new_word_num)*[p20],'v',color='lime',label='20%_quantile')
+plt.plot(new_x,len(new_word_num)*[p80],'^',color='lime',label='80%_分位数') 
+plt.plot(new_x,len(new_word_num)*[pm],'D',color='lime',label='中位数') 
+plt.plot(new_x,len(new_word_num)*[mean],'o',color='navy',label='平均值') 
+plt.plot(new_x,len(new_word_num)*[p20],'v',color='lime',label='20%_分位数')
 prop80=proportion(new_word_num*100,0.8) 
-plt.plot(new_x,len(new_word_num)*[prop80],'*',color='red',label='80%_proportion')
+plt.plot(new_x,len(new_word_num)*[prop80],'*',color='red',label='80%_比例')
 # 标记柱形的高度值
 for xx,yy in zip(new_x,new_y):
-  plt.text(xx-0.2,yy+0.1,'%.1f'%yy)
+  plt.text(xx-0.2,yy+0.1,'%.1f%%'%yy)
 for index,xx in enumerate(new_x):
   plt.text(xx-0.2,0.0,'%d'%(index+1)) 
 # 光滑曲线
-plt.plot(new_x, new_y,'o-',color='coral',label='proportion')
+plt.plot(new_x, new_y,'o-',color='coral',label='比例')
 plt.legend()
-plt.show() 
+fig.set_size_inches(16, 8)
+plt.savefig('新约_书卷篇幅占排序比图'+'.png',dpi = 500,bbox_inches='tight',pad_inches=None) #,,bbox_inches='tight'
+# plt.show() 
 
 file_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'proportion_rank.csv')
 fout=open(file_path,'w',encoding='UTF-8') #打开文件
