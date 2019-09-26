@@ -76,7 +76,7 @@
 * 圣经中人物名字意义: <http://www.godcom.net/zhuti/81.htm>
 
 ## 书卷篇幅占比图
-<div align=center><img width="600" height="320" src="圣经_书卷篇幅占比图.png"/>
-<div align=center><img width="600" height="320" src="圣经_书卷篇幅占比排序图.png"/>
-<div align=center><img width="600" height="320" src="旧约_书卷篇幅占排序比图.png"/>
-<div align=center><img width="600" height="320" src="新约_书卷篇幅占排序比图.png"/>
+<div align=center><img width="1000" height="540" src="圣经_书卷篇幅占比图.png"/>
+<div align=center><img width="1000" height="540" src="圣经_书卷篇幅占比排序图.png"/>
+<div align=center><img width="1000" height="540" src="旧约_书卷篇幅占排序比图.png"/>
+<div align=center><img width="1000" height="540" src="新约_书卷篇幅占排序比图.png"/>
