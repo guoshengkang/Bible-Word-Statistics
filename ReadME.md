@@ -1,8 +1,14 @@
-## 功能介绍
+## 主要功能介绍及分析
+# 功能介绍
 1. 统计各书卷中出现词语的词频
-2. 统计各书卷中出现词语的反词频
+2. 统计各书卷中出现词语的TF-IDF值
 3. 统计占篇幅前80%的词语在圣经中首次出现的书卷名称
 4. 统计各书卷的篇幅占比分布
+
+# 功能分析
+1. 由书卷中出现词语的词频，大致可看出该词语的重要性
+2. 由书卷中出现词语的TF-IDF值，大致可看出该词语在该卷数的独特重要性
+3. 由书卷的篇幅占比分布，可以大致看出该卷书在整本圣经中的重要性
 
 ## 具体代码功能介绍
 1. [**book2filename.py**](book2filename.py)
@@ -32,7 +38,7 @@
     * [output_file_tf/old_testament.txt](output_file_tf/old_testament.txt): 旧约圣经的词频统计
     * [output_file_tf/new_testament.txt](output_file_tf/new_testament.txt): 新约圣经的词频统计
 4. [**stat_tfidf.py**](stat_tfidf.py)
-  * **Function**: 统计各书卷中出现词语的反词频
+  * **Function**: 统计各书卷中出现词语的TF-IDF值
   * **Input**: 
     * [output_file_tf](output_file_tf): 各书卷的词频统计结果
     * [book2filename.txt](book2filename.txt): 新旧约英文书卷名缩写与文件命名的对应列表
@@ -61,9 +67,16 @@
 ## 注意事项
 1. UTF-8格式编码中行首可能会有一个不可见字符,可以转化为UTF-8无BOM格式编码再进行处理
 2. 为使jieba分词能将圣经的人名、地名分出来，特别将它们定义为自定义的词典文件[user.dict](user.dict)
+3. 由于圣经书卷不完全按时间顺序排列，因此词语在圣经中首次出现的书卷名称并不代表是最早出现的时间
+4. 本项目的功能分析，仅供参考
 
 ## 参考文献
 * 圣经人地名之人名(1153个): <http://www.godcom.net/rdm/r/>
 * 圣经人地名之地名(1829个): <http://www.godcom.net/rdm/di/>
 * 圣经中人物名字意义: <http://www.godcom.net/zhuti/81.htm>
 
+## 书卷篇幅占比图
+<div align=center><img width="600" height="320" src="圣经_书卷篇幅占比图.png"/>
+<div align=center><img width="600" height="320" src="圣经_书卷篇幅占比排序图.png"/>
+<div align=center><img width="600" height="320" src="旧约_书卷篇幅占排序比图.png"/>
+<div align=center><img width="600" height="320" src="新约_书卷篇幅占排序比图.png"/>
