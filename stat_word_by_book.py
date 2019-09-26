@@ -109,7 +109,7 @@ all_y = word_num*100
 ax=plt.bar(all_x, all_y,tick_label=books)  
 plt.xticks(all_x,rotation=80,fontsize=8)
 plt.ylabel("%")
-plt.title("圣经")
+plt.title("圣经_书卷篇幅占比图")
 p80=np.percentile(all_y,80)#80%分位数
 pm=np.median(all_y)
 mean=np.mean(all_y)
