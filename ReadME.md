@@ -93,5 +93,6 @@
 <div align=center><img width="1000" height="540" src="旧约_书卷篇幅占排序比图.png"/>
 <div align=center><img width="1000" height="540" src="新约_书卷篇幅占排序比图.png"/>
 
+
 -----
 欢迎并感谢您提出宝贵的问题或建议: 点击[**【我要提问】**](https://github.com/guoshengkang/Bible-Word-Statistics/issues/new)
